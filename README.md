@@ -19,9 +19,9 @@ Here are the expected results:
 </table>
 
 ### Enhancements
-1 Add an option to input the number of dice.
-1 Add an option to input the size of dice.
-1 Add some crazy option to specify arbitrary combinations of dice size and number.
+1. Add an option to input the number of dice.
+1. Add an option to input the size of dice.
+1. Add some crazy option to specify arbitrary combinations of dice size and number.
 
 
 ## Retrospective
