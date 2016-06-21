@@ -6,12 +6,19 @@ Write a program that outputs the probabilities of rolling each number 2-12 using
 
 Here are the expected results:
 
-| Number | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
-| Fraction | 1/36 | 2/36 | 3/36 | 4/36 | 5/36 | 6/36 | 5/36 | 4/36 | 3/36 | 2/36 | 1/36 | 
-| Percent | 3% | 6% | 8% | 11% | 14% | 17% | 14% | 11% | 8% | 6% | 3% | 
+<table>
+  <tr>
+    <th>Number</th><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td>
+  </tr>
+  <tr>
+  <th>Fraction</th><td>1/36</td><td>2/36</td><td>3/36</td><td>4/36</td><td>5/36</td><td>6/36</td><td>5/36</td><td>4/36</td><td>3/36</td><td>2/36</td><td>1/36</td>
+  </tr>
+  <tr>
+    <th>Percent</th><td>3%</td><td>6%</td><td>8%</td><td>11%</td><td>14%</td><td>17%</td><td>14%</td><td>11%</td><td>8%</td><td>6%</td><td>3%</td>
+  </tr>  
+</table>
 
-
-Enhancements
+### Enhancements
 1 Add an option to input the number of dice.
 1 Add an option to input the size of dice.
 1 Add some crazy option to specify arbitrary combinations of dice size and number.
