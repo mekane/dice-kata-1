@@ -9,7 +9,7 @@ module.exports = {
 };
 
 function listFaces(size) {
-    return rest(seq(size + 1));
+    return lib.range(size);
 }
 
 function combineDice(size) {
@@ -51,18 +51,6 @@ function combineWithSize(size) {
             return [number, secondNumber];
         });
     }
-}
-
-function seq(number) {
-    var result = [];
-    var i = 0;
-
-    if (number) {
-        while (i < number) {
-            result.push(i++);
-        }
-    }
-    return result;
 }
 
 function rest(array) {
