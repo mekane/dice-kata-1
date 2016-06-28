@@ -1,5 +1,6 @@
 var lib = require('../functional-programming/library');
 var flatten = lib.flatten;
+var sum = lib.sum;
 
 module.exports = {
     listFaces: listFaces,
@@ -50,17 +51,5 @@ function combineWithSize(size) {
         return listFaces(size).map(function (secondNumber) {
             return [number, secondNumber];
         });
-    }
-}
-
-function rest(array) {
-    return array.slice(1);
-}
-
-function sum( array ) {
-    return array.reduce(addNext, 0);
-
-    function addNext(total, numberToAdd) {
-        return total + numberToAdd;
     }
 }
