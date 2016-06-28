@@ -1,4 +1,4 @@
-var lib = require('../functional-programming/library');
+var lib = require('./functions');
 var flatten = lib.flatten;
 var sum = lib.sum;
 
