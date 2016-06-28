@@ -1,3 +1,6 @@
+var lib = require('../functional-programming/library');
+var flatten = lib.flatten;
+
 module.exports = {
     listFaces: listFaces,
     combineDice: combineDice,
@@ -49,17 +52,6 @@ function combineWithSize(size) {
         });
     }
 }
-
-function flatten(array) {
-    return array.reduce(flattenArraysIgnoringEmpty, []);
-}
-
-function flattenArraysIgnoringEmpty(a, b) {
-    if (a && a.length)
-        return a.concat(b);
-    return b;
-}
-
 
 function seq(number) {
     var result = [];
