@@ -105,10 +105,6 @@ describe('the functions library', function () {
         });
     });
 
-    describe('object keys', function () {
-
-    });
-
     describe('mapObject', function () {
         it('should be a function', function () {
             expect(lib.mapObject).to.be.a('function');
@@ -161,6 +157,46 @@ describe('the functions library', function () {
 
             expect(lib.mapObject(testObj, double)).to.deep.equal(expectedResult);
         });
+    });
+});
+
+describe('extending the global Object prototype', function () {
+    it('should be optional, requiring a function invocation to enable', function () {
+        expect(Object.prototype.keys).to.be.an('undefined');
+        expect(Object.prototype.map).to.be.an('undefined');
+        lib.extendObjectPrototype();
+        expect(Object.prototype.keys).to.be.a('function');
+        expect(Object.prototype.map).to.be.a('function');
+    });
+
+    it('should add a keys method that returns an Objects keys as an array', function () {
+        var testObject = {
+            a: 1,
+            b: 2,
+            c: 3
+        };
+        lib.extendObjectPrototype();
+        expect(testObject.keys()).to.deep.equal(['a', 'b', 'c']);
+    });
+
+    it('should add a map function that calls mapObject on this', function () {
+        var testObj = {
+            a: 1,
+            b: 2,
+            c: 3
+        };
+
+        function triple(n) {
+            return n * 3;
+        }
+
+        var expectedResult = {
+            a: 3,
+            b: 6,
+            c: 9
+        };
+
+        expect(testObj.map(triple)).to.deep.equal(expectedResult);
     });
 });
 

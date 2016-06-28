@@ -1,10 +1,20 @@
 module.exports = {
+    extendObjectPrototype: extendObjectPrototype,
     flatten: flatten,
     isObject: isObject,
     mapObject: mapObject,
     range: range,
     sum: sum
 };
+
+function extendObjectPrototype() {
+    Object.prototype.keys = function () {
+        return Object.keys(this);
+    };
+    Object.prototype.map = function (fn) {
+        return mapObject(this, fn);
+    }
+}
 
 function flatten(array) {
     if (array && typeof array.reduce === 'function')
@@ -47,7 +57,7 @@ function isObject(obj) {
 function mapObject(obj, fn) {
     if (obj && isObject(obj) && typeof fn === 'function') {
         var result = {};
-        Object.keys(obj).forEach(function(key){
+        Object.keys(obj).forEach(function (key) {
             result[key] = fn(obj[key]);
         });
         return result;
