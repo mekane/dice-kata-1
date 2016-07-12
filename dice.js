@@ -16,7 +16,7 @@ function listFaces(size) {
 
 function combineDice(numberOfDice, size) {
     var n = numberOfDice - 1;
-    var results = listFaces(size);
+    var results = listFaces(size).map(makeArray);
 
     while (n-- > 0) {
         results = flatten(listFaces(size).map(function (number) {
@@ -25,6 +25,10 @@ function combineDice(numberOfDice, size) {
     }
 
     return results;
+
+    function makeArray(item) {
+        return [item];
+    }
 }
 
 function combineTotals(arrayOfCombinations) {

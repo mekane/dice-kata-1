@@ -43,6 +43,9 @@ describe('the dice module', function () {
             ];
             expect(dice.combineDice(n, size)).to.deep.equal(expectedCombinations2d2);
 
+            var expectedCombinations1d6 = [[1], [2], [3], [4], [5], [6]];
+            expect(dice.combineDice(1, 6)).to.deep.equal(expectedCombinations1d6);
+
             var expectedCombinations2d6 = [
                 [1, 1],
                 [1, 2],
@@ -175,6 +178,15 @@ describe('the dice module', function () {
 
     describe('the combineTotals method', function () {
         it('should reduce all of the combinations to a map of totals and counts', function () {
+            var testCombinationsFor1d4 = [[1], [2], [3], [4]];
+            var expectedTotalsFor1d4 = {
+                1: 1,
+                2: 1,
+                3: 1,
+                4: 1
+            };
+            expect(dice.combineTotals(testCombinationsFor1d4)).to.deep.equal(expectedTotalsFor1d4);
+
             var testCombinationsFor2d2 = [
                 [1, 1],
                 [1, 2],
