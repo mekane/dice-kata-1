@@ -240,4 +240,31 @@ describe('the dice module', function () {
         });
     });
 
+    describe('the parseDiceFromCommandLine method', function () {
+        it('should be a function', function () {
+            expect(dice.parseDiceFromCommandLine).to.be.a('function');
+        });
+
+        it('should return an empty object for bad arguments', function () {
+            expect(dice.parseDiceFromCommandLine()).to.deep.equal({});
+            expect(dice.parseDiceFromCommandLine('')).to.deep.equal({});
+            expect(dice.parseDiceFromCommandLine(0)).to.deep.equal({});
+            expect(dice.parseDiceFromCommandLine({})).to.deep.equal({});
+            expect(dice.parseDiceFromCommandLine('0d0')).to.deep.equal({});
+            expect(dice.parseDiceFromCommandLine('0d6')).to.deep.equal({});
+            expect(dice.parseDiceFromCommandLine('1d0')).to.deep.equal({});
+            expect(dice.parseDiceFromCommandLine('ad6')).to.deep.equal({});
+            expect(dice.parseDiceFromCommandLine('9dfoo')).to.deep.equal({});
+            expect(dice.parseDiceFromCommandLine('add')).to.deep.equal({});
+        });
+
+        it('should return an object with parsed (numeric) dice number and size', function () {
+            expect(dice.parseDiceFromCommandLine('1d6')).to.deep.equal({number: 1, size: 6});
+            expect(dice.parseDiceFromCommandLine('2d6')).to.deep.equal({number: 2, size: 6});
+            expect(dice.parseDiceFromCommandLine('1d4')).to.deep.equal({number: 1, size: 4});
+            expect(dice.parseDiceFromCommandLine('1d10')).to.deep.equal({number: 1, size: 10});
+            expect(dice.parseDiceFromCommandLine('10d10')).to.deep.equal({number: 10, size: 10});
+        });
+    });
+
 });
