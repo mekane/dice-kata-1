@@ -41,7 +41,7 @@ function getPercentageStatsFromTotals(statsObject) {
     var totalRolls = countTotalRolls(statsObject);
 
     Object.keys(statsObject).map(function(total){
-        result[total] = ((statsObject[total] * 100) / totalRolls).toFixed();
+        result[total] = ((statsObject[total] * 100) / totalRolls).toFixed(1);
     });
 
     return result;

@@ -175,34 +175,68 @@ describe('the dice module', function () {
 
     describe('the combineTotals method', function () {
         it('should reduce all of the combinations to a map of totals and counts', function () {
-            var testCombinations = [
-                [1, 1], [1, 2],
-                [2, 1], [2, 2]
+            var testCombinationsFor2d2 = [
+                [1, 1],
+                [1, 2],
+                [2, 1],
+                [2, 2]
             ];
-
-            var expectedTotals = {
+            var expectedTotalsFor2d2 = {
                 2: 1,
                 3: 2,
                 4: 1
             };
+            expect(dice.combineTotals(testCombinationsFor2d2)).to.deep.equal(expectedTotalsFor2d2);
 
-            expect(dice.combineTotals(testCombinations)).to.deep.equal(expectedTotals);
+
+            var testCombinationsFor3d2 = [
+                [1, 1, 1], // 3
+                [1, 1, 2], // 4
+                [1, 2, 1], // 4
+                [1, 2, 2], // 5
+                [2, 1, 1], // 4
+                [2, 1, 2], // 5
+                [2, 2, 1], // 5
+                [2, 2, 2]  // 6
+            ];
+
+            var expectedTotalsFor3d2 = {
+                3: 1,
+                4: 3,
+                5: 3,
+                6: 1
+            };
+            expect(dice.combineTotals(testCombinationsFor3d2)).to.deep.equal(expectedTotalsFor3d2);
         });
     });
 
     describe('getPercentageStatsFromTotals', function () {
         it('should count the total number of rolls and compute odds in percentages', function () {
-            var testTotals = {
+            var testTotalsFor2d2 = {
                 2: 1,
                 3: 2,
                 4: 1
             };
-            var expectedStats = {
-                2: '25',
-                3: '50',
-                4: '25'
+            var expectedStatsFor2d2 = {
+                2: '25.0',
+                3: '50.0',
+                4: '25.0'
             };
-            expect(dice.getPercentageStatsFromTotals(testTotals)).to.deep.equal(expectedStats);
+            expect(dice.getPercentageStatsFromTotals(testTotalsFor2d2)).to.deep.equal(expectedStatsFor2d2);
+
+            var testTotalsFor3d2 = {
+                3: 1,
+                4: 3,
+                5: 3,
+                6: 1
+            };
+            var expectedStatsFor3d2 = {
+                3: '12.5',
+                4: '37.5',
+                5: '37.5',
+                6: '12.5'
+            };
+            expect(dice.getPercentageStatsFromTotals(testTotalsFor3d2)).to.deep.equal(expectedStatsFor3d2);
         });
     });
 
