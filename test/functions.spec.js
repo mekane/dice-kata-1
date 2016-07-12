@@ -174,17 +174,27 @@ describe('the functions library', function () {
 
         it('should return an array of arrays, each of which contains the item', function () {
             var testArray = [1, 2, 3, 4];
-            var expectedResults = [[1, 'foo'], [2, 'foo'], [3, 'foo'], [4, 'foo']];
-            expect(lib.combineArrayWith(testArray, 'foo')).to.deep.equal(expectedResults);
+            var testValue = 'a';
+            var expectedResults = [
+                ['a', 1],
+                ['a', 2],
+                ['a', 3],
+                ['a', 4]
+            ];
+            expect(lib.combineArrayWith(testArray, testValue)).to.deep.equal(expectedResults);
         });
 
-        it.skip('should recursively combine arrays', function () {
-            var testArray = [1, 2, 3];
-            var testValue = ['a', 'b'];
+        it('should append items if the array contains arrays', function () {
+            var testArray = [
+                [1, 1],
+                [1, 2],
+                [1, 3]
+            ];
+            var testValue = 'a';
             var expectedResults = [
-                [[1, 'a'], [1, 'b']],
-                [[2, 'a'], [2, 'b']],
-                [[3, 'a'], [3, 'b']]
+                ['a', 1, 1],
+                ['a', 1, 2],
+                ['a', 1, 3]
             ];
             expect(lib.combineArrayWith(testArray, testValue)).to.deep.equal(expectedResults);
         });

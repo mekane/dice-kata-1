@@ -13,8 +13,17 @@ function listFaces(size) {
     return lib.range(size);
 }
 
-function combineDice(number, size) {
-    return flatten(listFaces(size).map(combineWithSize(size)));
+function combineDice(numberOfDice, size) {
+    var n = numberOfDice - 1;
+    var results = listFaces(size);
+
+    while ( n --> 0 ){
+        results = flatten(listFaces(size).map(function(number) {
+            return lib.combineArrayWith(results, number);
+        }));
+    }
+
+    return results;
 }
 
 function combineTotals(arrayOfCombinations) {
@@ -43,13 +52,5 @@ function getPercentageStatsFromTotals(statsObject) {
         function getCount(total){
             return statsObject[total];
         }
-    }
-}
-
-function combineWithSize(size) {
-    return function (number) {
-        return listFaces(size).map(function (secondNumber) {
-            return [number, secondNumber];
-        });
     }
 }

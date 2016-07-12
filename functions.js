@@ -68,8 +68,12 @@ function mapObject(obj, fn) {
 
 function combineArrayWith(array, itemToCombine) {
     if (Array.isArray(array))
-        return array.map(function (arrayItem) {
-            return [arrayItem, itemToCombine];
-        });
+        return array.map(combine(itemToCombine));
     return [];
+
+    function combine(secondItem) {
+        return function (item) {
+            return [].concat(secondItem,item);
+        }
+    }
 }
