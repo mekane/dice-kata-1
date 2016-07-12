@@ -13,7 +13,7 @@ function listFaces(size) {
     return lib.range(size);
 }
 
-function combineDice(size) {
+function combineDice(number, size) {
     return flatten(listFaces(size).map(combineWithSize(size)));
 }
 

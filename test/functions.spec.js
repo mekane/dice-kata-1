@@ -158,6 +158,38 @@ describe('the functions library', function () {
             expect(lib.mapObject(testObj, double)).to.deep.equal(expectedResult);
         });
     });
+
+    describe('combineArrayWith', function () {
+        it('should be a function', function () {
+            expect(lib.combineArrayWith).to.be.a('function');
+        });
+
+        it('should return false for bad arguments', function () {
+            expect(lib.combineArrayWith([])).to.deep.equal([]);
+            expect(lib.combineArrayWith([], 0)).to.deep.equal([]);
+            expect(lib.combineArrayWith([], '')).to.deep.equal([]);
+            expect(lib.combineArrayWith([], {})).to.deep.equal([]);
+            expect(lib.combineArrayWith([], [])).to.deep.equal([]);
+        });
+
+        it('should return an array of arrays, each of which contains the item', function () {
+            var testArray = [1, 2, 3, 4];
+            var expectedResults = [[1, 'foo'], [2, 'foo'], [3, 'foo'], [4, 'foo']];
+            expect(lib.combineArrayWith(testArray, 'foo')).to.deep.equal(expectedResults);
+        });
+
+        it.skip('should recursively combine arrays', function () {
+            var testArray = [1, 2, 3];
+            var testValue = ['a', 'b'];
+            var expectedResults = [
+                [[1, 'a'], [1, 'b']],
+                [[2, 'a'], [2, 'b']],
+                [[3, 'a'], [3, 'b']]
+            ];
+            expect(lib.combineArrayWith(testArray, testValue)).to.deep.equal(expectedResults);
+        });
+    });
+
 });
 
 describe('extending the global Object prototype', function () {

@@ -27,21 +27,21 @@ describe('the dice module', function () {
         });
     });
 
-    describe('the combineDice method', function () {
+    describe.skip('the diceCombinations method', function () {
         it('should be a method', function () {
             expect(dice.combineDice).to.be.a('function');
         });
 
-        it('should return the combinations of two sets of faces of the same size die', function () {
-            var expectedCombinations = [
+        it('should return the combinations of n sets of faces of the same size dice', function () {
+            var n = 2;
+            var size = 2;
+            var expectedCombinations2d2 = [
                 [1, 1], [1, 2],
                 [2, 1], [2, 2]
             ];
-            expect(dice.combineDice(2)).to.deep.equal(expectedCombinations);
-        });
+            expect(dice.combineDice(n, size)).to.deep.equal(expectedCombinations2d2);
 
-        it('should return the combinations of two sets of faces of the same size die', function () {
-            var expectedCombinations = [
+            var expectedCombinations2d6 = [
                 [1, 1], [1, 2], [1, 3], [1, 4], [1, 5], [1, 6],
                 [2, 1], [2, 2], [2, 3], [2, 4], [2, 5], [2, 6],
                 [3, 1], [3, 2], [3, 3], [3, 4], [3, 5], [3, 6],
@@ -49,7 +49,27 @@ describe('the dice module', function () {
                 [5, 1], [5, 2], [5, 3], [5, 4], [5, 5], [5, 6],
                 [6, 1], [6, 2], [6, 3], [6, 4], [6, 5], [6, 6]
             ];
-            expect(dice.combineDice(6)).to.deep.equal(expectedCombinations);
+            expect(dice.combineDice(2, 6)).to.deep.equal(expectedCombinations2d6);
+
+            var expectedCombinations3d4 = [
+                [1, 1, 1], [1, 1, 2], [1, 1, 3], [1, 1, 4],
+                [1, 2, 1], [1, 2, 2], [1, 2, 3], [1, 2, 4],
+                [1, 3, 1], [1, 3, 2], [1, 3, 3], [1, 3, 4],
+                [1, 4, 1], [1, 4, 2], [1, 4, 3], [1, 4, 4],
+                [2, 1, 1], [2, 1, 2], [2, 1, 3], [2, 1, 4],
+                [2, 2, 1], [2, 2, 2], [2, 2, 3], [2, 2, 4],
+                [2, 3, 1], [2, 3, 2], [2, 3, 3], [2, 3, 4],
+                [2, 4, 1], [2, 4, 2], [2, 4, 3], [2, 4, 4],
+                [3, 1, 1], [3, 1, 2], [3, 1, 3], [3, 1, 4],
+                [3, 2, 1], [3, 2, 2], [3, 2, 3], [3, 2, 4],
+                [3, 3, 1], [3, 3, 2], [3, 3, 3], [3, 3, 4],
+                [3, 4, 1], [3, 4, 2], [3, 4, 3], [3, 4, 4],
+                [4, 1, 1], [4, 1, 2], [4, 1, 3], [4, 1, 4],
+                [4, 2, 1], [4, 2, 2], [4, 2, 3], [4, 2, 4],
+                [4, 3, 1], [4, 3, 2], [4, 3, 3], [4, 3, 4],
+                [4, 4, 1], [4, 4, 2], [4, 4, 3], [4, 4, 4]
+            ];
+            expect(dice.combineDice(3, 4)).to.deep.equal(expectedCombinations3d4);
         });
     });
 

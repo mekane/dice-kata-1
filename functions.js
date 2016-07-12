@@ -1,4 +1,5 @@
 module.exports = {
+    combineArrayWith: combineArrayWith,
     extendObjectPrototype: extendObjectPrototype,
     flatten: flatten,
     isObject: isObject,
@@ -63,4 +64,12 @@ function mapObject(obj, fn) {
         return result;
     }
     return {};
+}
+
+function combineArrayWith(array, itemToCombine) {
+    if (Array.isArray(array))
+        return array.map(function (arrayItem) {
+            return [arrayItem, itemToCombine];
+        });
+    return [];
 }
