@@ -343,4 +343,34 @@ describe('the dice module', function () {
         });
     });
 
+    describe('the parseTargetFromCommandLine method', function () {
+        it('should be a function', function () {
+            expect(dice.parseTargetFromCommandLine).to.be.a('function');
+        });
+
+        it('should return an empty object for bad arguments', function () {
+            expect(dice.parseTargetFromCommandLine()).to.deep.equal({});
+            expect(dice.parseTargetFromCommandLine('')).to.deep.equal({});
+            expect(dice.parseTargetFromCommandLine(0)).to.deep.equal({});
+            expect(dice.parseTargetFromCommandLine({})).to.deep.equal({});
+            expect(dice.parseTargetFromCommandLine('-')).to.deep.equal({});
+            expect(dice.parseTargetFromCommandLine('+')).to.deep.equal({});
+            expect(dice.parseTargetFromCommandLine('foo')).to.deep.equal({});
+            expect(dice.parseTargetFromCommandLine('a+')).to.deep.equal({});
+            expect(dice.parseTargetFromCommandLine('a-')).to.deep.equal({});
+            expect(dice.parseTargetFromCommandLine('-a')).to.deep.equal({});
+            expect(dice.parseTargetFromCommandLine('+a')).to.deep.equal({});
+        });
+
+        it('should return an object with parsed (numeric) dice number and size', function () {
+            expect(dice.parseTargetFromCommandLine('1')).to.deep.equal({target: 1, direction: 'greater'});
+            expect(dice.parseTargetFromCommandLine('1+')).to.deep.equal({target: 1, direction: 'greater'});
+            expect(dice.parseTargetFromCommandLine('-1')).to.deep.equal({target: 1, direction: 'less'});
+            expect(dice.parseTargetFromCommandLine('1-')).to.deep.equal({target: 1, direction: 'less'});
+            expect(dice.parseTargetFromCommandLine('8')).to.deep.equal({target: 8, direction: 'greater'});
+            expect(dice.parseTargetFromCommandLine('8+')).to.deep.equal({target: 8, direction: 'greater'});
+            expect(dice.parseTargetFromCommandLine('-8')).to.deep.equal({target: 8, direction: 'less'});
+            expect(dice.parseTargetFromCommandLine('8-')).to.deep.equal({target: 8, direction: 'less'});
+        });
+    });
 });

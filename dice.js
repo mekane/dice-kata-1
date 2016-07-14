@@ -9,6 +9,7 @@ module.exports = {
     getPercentageStatsFromTotals: getPercentageStatsFromTotals,
     sumPercentagesGreaterThanRoll: sumPercentagesGreaterThanRoll,
     parseDiceFromCommandLine: parseDiceFromCommandLine,
+    parseTargetFromCommandLine: parseTargetFromCommandLine,
     sumPercentagesLessThanRoll: sumPercentagesLessThanRoll
 };
 
@@ -75,7 +76,7 @@ function sumPercentagesGreaterThanRoll(percentageStats, targetRoll) {
     return sum;
 }
 
-function sumPercentagesLessThanRoll(  percentageStats, targetRoll) {
+function sumPercentagesLessThanRoll(percentageStats, targetRoll) {
     if (!percentageStats || typeof percentageStats !== 'object' || typeof targetRoll !== 'number' || targetRoll < 0) {
         return 0;
     }
@@ -112,3 +113,52 @@ function parseDiceFromCommandLine(stringToParse) {
 
     return {};
 }
+
+function parseTargetFromCommandLine(stringToParse) {
+    var direction = 'greater';
+
+    if (!stringToParse || typeof stringToParse !== 'string' || stringToParse.length === 0) {
+        return {};
+    }
+
+    var first = 0;
+    var last = stringToParse.length - 1;
+
+    if (stringToParse[first] === '+' ) {
+        stringToParse = stripFirst(stringToParse);
+    }
+
+    if ( stringToParse[last] === '+') {
+        stringToParse = stripLast(stringToParse);
+    }
+
+    if (stringToParse[first] === '-' ) {
+        direction = 'less';
+        stringToParse = stripFirst(stringToParse);
+    }
+
+    if ( stringToParse[last] === '-') {
+        direction = 'less';
+        stringToParse = stripLast(stringToParse);
+    }
+
+    var target = Number.parseInt(stringToParse);
+
+    if ( isNaN(target) ){
+        return {};
+    }
+
+    return {
+        target: target,
+        direction: direction
+    };
+
+    function stripFirst(string) {
+        return string.substring(1);
+    }
+
+    function stripLast(string) {
+        return string.substring(0, string.length - 1);
+    }
+}
+
