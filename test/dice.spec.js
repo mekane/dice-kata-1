@@ -252,6 +252,70 @@ describe('the dice module', function () {
         });
     });
 
+    describe('sumPercentagesGreaterThanRoll', function() {
+        it('should be a function', function () {
+            expect(dice.sumPercentagesGreaterThanRoll).to.be.a('function');
+        });
+
+        it('returns zero for bad arguments', function () {
+            expect(dice.sumPercentagesGreaterThanRoll()).to.equal(0);
+            expect(dice.sumPercentagesGreaterThanRoll(0)).to.equal(0);
+            expect(dice.sumPercentagesGreaterThanRoll('')).to.equal(0);
+            expect(dice.sumPercentagesGreaterThanRoll({})).to.equal(0);
+        });
+
+        it('returns the sum of the chances for rolls greater than the argument', function () {
+            var testChances = {
+                1: '25',
+                2: '25',
+                3: '25',
+                4: '25'
+            };
+            expect(dice.sumPercentagesGreaterThanRoll(testChances, 2)).to.equal(50);
+
+            testChances = {
+                1: '20',
+                2: '20',
+                3: '20',
+                4: '20',
+                5: '20'
+            };
+            expect(dice.sumPercentagesGreaterThanRoll(testChances, 2)).to.equal(60);
+        });
+    });
+
+    describe('sumPercentagesLessThanRoll', function() {
+        it('should be a function', function () {
+            expect(dice.sumPercentagesLessThanRoll).to.be.a('function');
+        });
+
+        it('returns zero for bad arguments', function () {
+            expect(dice.sumPercentagesLessThanRoll()).to.equal(0);
+            expect(dice.sumPercentagesLessThanRoll(0)).to.equal(0);
+            expect(dice.sumPercentagesLessThanRoll('')).to.equal(0);
+            expect(dice.sumPercentagesLessThanRoll({})).to.equal(0);
+        });
+
+        it('returns the sum of the chances for rolls less than the argument', function () {
+            var testChances = {
+                1: '25',
+                2: '25',
+                3: '25',
+                4: '25'
+            };
+            expect(dice.sumPercentagesLessThanRoll(testChances, 2)).to.equal(25);
+
+            testChances = {
+                1: '20',
+                2: '20',
+                3: '20',
+                4: '20',
+                5: '20'
+            };
+            expect(dice.sumPercentagesLessThanRoll(testChances, 3)).to.equal(40);
+        });
+    });
+
     describe('the parseDiceFromCommandLine method', function () {
         it('should be a function', function () {
             expect(dice.parseDiceFromCommandLine).to.be.a('function');

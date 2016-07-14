@@ -7,7 +7,9 @@ module.exports = {
     combineDice: combineDice,
     combineTotals: combineTotals,
     getPercentageStatsFromTotals: getPercentageStatsFromTotals,
-    parseDiceFromCommandLine: parseDiceFromCommandLine
+    sumPercentagesGreaterThanRoll: sumPercentagesGreaterThanRoll,
+    parseDiceFromCommandLine: parseDiceFromCommandLine,
+    sumPercentagesLessThanRoll: sumPercentagesLessThanRoll
 };
 
 function listFaces(size) {
@@ -58,6 +60,32 @@ function getPercentageStatsFromTotals(statsObject) {
             return statsObject[total];
         }
     }
+}
+
+function sumPercentagesGreaterThanRoll(percentageStats, targetRoll) {
+    if (!percentageStats || typeof percentageStats !== 'object' || typeof targetRoll !== 'number' || targetRoll < 0) {
+        return 0;
+    }
+    var sum = 0;
+    Object.keys(percentageStats).forEach(function (roll) {
+        if (roll > targetRoll) {
+            sum += parseFloat(percentageStats[roll]);
+        }
+    });
+    return sum;
+}
+
+function sumPercentagesLessThanRoll(  percentageStats, targetRoll) {
+    if (!percentageStats || typeof percentageStats !== 'object' || typeof targetRoll !== 'number' || targetRoll < 0) {
+        return 0;
+    }
+    var sum = 0;
+    Object.keys(percentageStats).forEach(function (roll) {
+        if (roll < targetRoll) {
+            sum += Number.parseFloat(percentageStats[roll]);
+        }
+    });
+    return sum;
 }
 
 function parseDiceFromCommandLine(stringToParse) {
