@@ -4,7 +4,7 @@ var sum = lib.sum;
 
 module.exports = {
     listFaces: listFaces,
-    combineDice: combineDice,
+    computeRollsForDice: computeRollsForDice,
     combineTotals: combineTotals,
     getPercentageStatsFromTotals: getPercentageStatsFromTotals,
     sumPercentagesGreaterThanRoll: sumPercentagesGreaterThanRoll,
@@ -16,7 +16,7 @@ function listFaces(size) {
     return lib.range(size);
 }
 
-function combineDice(numberOfDice, size) {
+function computeRollsForDice(numberOfDice, size) {
     var n = numberOfDice - 1;
     var results = listFaces(size).map(makeArray);
 

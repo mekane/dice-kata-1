@@ -27,9 +27,9 @@ describe('the dice module', function () {
         });
     });
 
-    describe('the diceCombinations method', function () {
+    describe('the computeRollsForDice method', function () {
         it('should be a method', function () {
-            expect(dice.combineDice).to.be.a('function');
+            expect(dice.computeRollsForDice).to.be.a('function');
         });
 
         it('should return the combinations of n sets of faces of the same size dice', function () {
@@ -41,10 +41,10 @@ describe('the dice module', function () {
                 [2, 1],
                 [2, 2]
             ];
-            expect(dice.combineDice(n, size)).to.deep.equal(expectedCombinations2d2);
+            expect(dice.computeRollsForDice(n, size)).to.deep.equal(expectedCombinations2d2);
 
             var expectedCombinations1d6 = [[1], [2], [3], [4], [5], [6]];
-            expect(dice.combineDice(1, 6)).to.deep.equal(expectedCombinations1d6);
+            expect(dice.computeRollsForDice(1, 6)).to.deep.equal(expectedCombinations1d6);
 
             var expectedCombinations2d6 = [
                 [1, 1],
@@ -84,7 +84,7 @@ describe('the dice module', function () {
                 [6, 5],
                 [6, 6]
             ];
-            expect(dice.combineDice(2, 6)).to.deep.equal(expectedCombinations2d6);
+            expect(dice.computeRollsForDice(2, 6)).to.deep.equal(expectedCombinations2d6);
 
             var expectedCombinations3d4 = [
                 [1, 1, 1],
@@ -152,7 +152,7 @@ describe('the dice module', function () {
                 [4, 4, 3],
                 [4, 4, 4]
             ];
-            expect(dice.combineDice(3, 4)).to.deep.equal(expectedCombinations3d4);
+            expect(dice.computeRollsForDice(3, 4)).to.deep.equal(expectedCombinations3d4);
 
             var expectedCombinations4d2 = [
                 [1, 1, 1, 1],
@@ -172,7 +172,7 @@ describe('the dice module', function () {
                 [2, 2, 2, 1],
                 [2, 2, 2, 2]
             ];
-            expect(dice.combineDice(4, 2)).to.deep.equal(expectedCombinations4d2);
+            expect(dice.computeRollsForDice(4, 2)).to.deep.equal(expectedCombinations4d2);
         });
     });
 

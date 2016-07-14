@@ -7,7 +7,7 @@ var commandLineOptionTarget = process.argv[3];
 var numberOfDice = commandLineOptionDice.number;
 var sizeOfDice = commandLineOptionDice.size;
 
-var rolls = dice.combineDice(numberOfDice, sizeOfDice);
+var rolls = dice.computeRollsForDice(numberOfDice, sizeOfDice);
 var stats = dice.getPercentageStatsFromTotals(dice.combineTotals(rolls));
 printStatsForAllRolls(stats);
 printTargetOdds(stats, commandLineOptionTarget);
