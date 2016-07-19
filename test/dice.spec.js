@@ -156,20 +156,29 @@ describe('the dice module', function () {
             expect(dice.computeRollsForDice).to.be.a('function');
         });
 
-        it('should return the combinations of n sets of faces of the same size dice', function () {
-            var n = 2;
-            var size = 2;
+        it('should return an empty array for bad results', function () {
+            expect(dice.computeRollsForDice()).to.deep.equal([]);
+            expect(dice.computeRollsForDice('')).to.deep.equal([]);
+            expect(dice.computeRollsForDice(11)).to.deep.equal([]);
+            expect(dice.computeRollsForDice([])).to.deep.equal([]);
+            expect(dice.computeRollsForDice({})).to.deep.equal([]);
+        });
+
+        it('should return the combinations of a list of dice sizes', function () {
+            var _2d2 = [2, 2];
             var expectedCombinations2d2 = [
                 [1, 1],
                 [1, 2],
                 [2, 1],
                 [2, 2]
             ];
-            expect(dice.computeRollsForDice(n, size)).to.deep.equal(expectedCombinations2d2);
+            expect(dice.computeRollsForDice(_2d2)).to.deep.equal(expectedCombinations2d2);
 
+            var _1d6 = [6];
             var expectedCombinations1d6 = [[1], [2], [3], [4], [5], [6]];
-            expect(dice.computeRollsForDice(1, 6)).to.deep.equal(expectedCombinations1d6);
+            expect(dice.computeRollsForDice(_1d6)).to.deep.equal(expectedCombinations1d6);
 
+            var _2d6 = [6, 6];
             var expectedCombinations2d6 = [
                 [1, 1],
                 [1, 2],
@@ -208,8 +217,9 @@ describe('the dice module', function () {
                 [6, 5],
                 [6, 6]
             ];
-            expect(dice.computeRollsForDice(2, 6)).to.deep.equal(expectedCombinations2d6);
+            expect(dice.computeRollsForDice(_2d6)).to.deep.equal(expectedCombinations2d6);
 
+            var _3d4 = [4, 4, 4];
             var expectedCombinations3d4 = [
                 [1, 1, 1],
                 [1, 1, 2],
@@ -276,8 +286,9 @@ describe('the dice module', function () {
                 [4, 4, 3],
                 [4, 4, 4]
             ];
-            expect(dice.computeRollsForDice(3, 4)).to.deep.equal(expectedCombinations3d4);
+            expect(dice.computeRollsForDice(_3d4)).to.deep.equal(expectedCombinations3d4);
 
+            var _4d2 = [2, 2, 2, 2];
             var expectedCombinations4d2 = [
                 [1, 1, 1, 1],
                 [1, 1, 1, 2],
@@ -296,7 +307,36 @@ describe('the dice module', function () {
                 [2, 2, 2, 1],
                 [2, 2, 2, 2]
             ];
-            expect(dice.computeRollsForDice(4, 2)).to.deep.equal(expectedCombinations4d2);
+            expect(dice.computeRollsForDice(_4d2)).to.deep.equal(expectedCombinations4d2);
+
+            var _1d2_1d3_1d4 = [2, 3, 4];
+            var expectedCombinationsFor1d2and1d3and1d4 = [
+                [1, 1, 1],
+                [1, 1, 2],
+                [1, 2, 1],
+                [1, 2, 2],
+                [1, 3, 1],
+                [1, 3, 2],
+                [2, 1, 1],
+                [2, 1, 2],
+                [2, 2, 1],
+                [2, 2, 2],
+                [2, 3, 1],
+                [2, 3, 2],
+                [3, 1, 1],
+                [3, 1, 2],
+                [3, 2, 1],
+                [3, 2, 2],
+                [3, 3, 1],
+                [3, 3, 2],
+                [4, 1, 1],
+                [4, 1, 2],
+                [4, 2, 1],
+                [4, 2, 2],
+                [4, 3, 1],
+                [4, 3, 2]
+            ];
+            expect(dice.computeRollsForDice(_1d2_1d3_1d4)).to.deep.equal(expectedCombinationsFor1d2and1d3and1d4);
         });
     });
 

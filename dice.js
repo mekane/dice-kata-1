@@ -18,15 +18,11 @@ function listFaces(size) {
     return lib.range(size);
 }
 
-function computeRollsForDice(numberOfDice, size) {
-    var n = numberOfDice;
-    var results = [];
-
-    while (n-- > 0) {
-        results = combineRolls(results, size);
+function computeRollsForDice(diceSizes) {
+    if (Array.isArray(diceSizes) && diceSizes.length > 0) {
+        return diceSizes.reduce(combineRolls, []);
     }
-
-    return results;
+    return [];
 }
 
 function combineRolls(existingRolls, diceSize) {
