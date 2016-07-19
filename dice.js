@@ -5,6 +5,7 @@ var sum = lib.sum;
 module.exports = {
     listFaces: listFaces,
     computeRollsForDice: computeRollsForDice,
+    combineRolls: combineRolls,
     combineTotals: combineTotals,
     getPercentageStatsFromTotals: getPercentageStatsFromTotals,
     sumPercentagesGreaterThanRoll: sumPercentagesGreaterThanRoll,
@@ -18,19 +19,29 @@ function listFaces(size) {
 }
 
 function computeRollsForDice(numberOfDice, size) {
-    var n = numberOfDice - 1;
-    var results = listFaces(size).map(makeArray);
+    var n = numberOfDice;
+    var results = [];
 
     while (n-- > 0) {
-        results = flatten(listFaces(size).map(function (number) {
-            return lib.combineArrayWith(results, number);
-        }));
+        results = combineRolls(results, size);
     }
 
     return results;
+}
 
-    function makeArray(item) {
-        return [item];
+function combineRolls(existingRolls, diceSize) {
+    if (Array.isArray(existingRolls)) {
+        if (existingRolls.length === 0)
+            return listFaces(diceSize).map(makeArray);
+        else
+            return flatten(listFaces(diceSize).map(function (number) {
+                return lib.combineArrayWith(existingRolls, number);
+            }));
+    }
+    return [];
+
+    function makeArray(val) {
+        return [val];
     }
 }
 
@@ -124,27 +135,27 @@ function parseTargetFromCommandLine(stringToParse) {
     var first = 0;
     var last = stringToParse.length - 1;
 
-    if (stringToParse[first] === '+' ) {
+    if (stringToParse[first] === '+') {
         stringToParse = stripFirst(stringToParse);
     }
 
-    if ( stringToParse[last] === '+') {
+    if (stringToParse[last] === '+') {
         stringToParse = stripLast(stringToParse);
     }
 
-    if (stringToParse[first] === '-' ) {
+    if (stringToParse[first] === '-') {
         direction = 'less';
         stringToParse = stripFirst(stringToParse);
     }
 
-    if ( stringToParse[last] === '-') {
+    if (stringToParse[last] === '-') {
         direction = 'less';
         stringToParse = stripLast(stringToParse);
     }
 
     var target = Number.parseInt(stringToParse);
 
-    if ( isNaN(target) ){
+    if (isNaN(target)) {
         return {};
     }
 

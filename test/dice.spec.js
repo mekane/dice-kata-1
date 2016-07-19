@@ -27,6 +27,130 @@ describe('the dice module', function () {
         });
     });
 
+    describe('combineRolls', function () {
+        it('should be a function', function () {
+            expect(dice.combineRolls).to.be.a('function');
+        });
+
+        it('should return an empty array for bad arguments', function () {
+            expect(dice.combineRolls()).to.deep.equal([]);
+            expect(dice.combineRolls(0)).to.deep.equal([]);
+            expect(dice.combineRolls('')).to.deep.equal([]);
+            expect(dice.combineRolls({})).to.deep.equal([]);
+        });
+
+        it('should return an array of single rolls given an empty starting array', function () {
+            var expectedCombinations = [[1], [2], [3], [4], [5], [6]];
+            expect(dice.combineRolls([], 6)).to.deep.equal(expectedCombinations);
+        });
+
+        it('should take an array and return combinations with a given dice size', function () {
+            var rollsFor1d6 = [[1], [2], [3], [4], [5], [6]];
+            var expectedCombinationsFor2d6 = [
+                [1, 1],
+                [1, 2],
+                [1, 3],
+                [1, 4],
+                [1, 5],
+                [1, 6],
+                [2, 1],
+                [2, 2],
+                [2, 3],
+                [2, 4],
+                [2, 5],
+                [2, 6],
+                [3, 1],
+                [3, 2],
+                [3, 3],
+                [3, 4],
+                [3, 5],
+                [3, 6],
+                [4, 1],
+                [4, 2],
+                [4, 3],
+                [4, 4],
+                [4, 5],
+                [4, 6],
+                [5, 1],
+                [5, 2],
+                [5, 3],
+                [5, 4],
+                [5, 5],
+                [5, 6],
+                [6, 1],
+                [6, 2],
+                [6, 3],
+                [6, 4],
+                [6, 5],
+                [6, 6]
+            ];
+            expect(dice.combineRolls(rollsFor1d6, 6)).to.deep.equal(expectedCombinationsFor2d6);
+        });
+
+        it('should be able to combine rolls for different size dice', function () {
+            var rollsFor1d4 = [[1], [2], [3], [4]];
+            var expectedCombinationsFor1d4and1d6 = [
+                [1, 1],
+                [1, 2],
+                [1, 3],
+                [1, 4],
+                [2, 1],
+                [2, 2],
+                [2, 3],
+                [2, 4],
+                [3, 1],
+                [3, 2],
+                [3, 3],
+                [3, 4],
+                [4, 1],
+                [4, 2],
+                [4, 3],
+                [4, 4],
+                [5, 1],
+                [5, 2],
+                [5, 3],
+                [5, 4],
+                [6, 1],
+                [6, 2],
+                [6, 3],
+                [6, 4]
+            ];
+            expect(dice.combineRolls(rollsFor1d4, 6)).to.deep.equal(expectedCombinationsFor1d4and1d6);
+
+            var rollsFor1d2 = [[1], [2]];
+            var rollsFor1d2and1d3 = dice.combineRolls(rollsFor1d2, 3);
+            var rollsFor1d2and1d3and1d4 = dice.combineRolls(rollsFor1d2and1d3, 4);
+            var expectedCombinationsFor1d2and1d3and1d4 = [
+                [1, 1, 1],
+                [1, 1, 2],
+                [1, 2, 1],
+                [1, 2, 2],
+                [1, 3, 1],
+                [1, 3, 2],
+                [2, 1, 1],
+                [2, 1, 2],
+                [2, 2, 1],
+                [2, 2, 2],
+                [2, 3, 1],
+                [2, 3, 2],
+                [3, 1, 1],
+                [3, 1, 2],
+                [3, 2, 1],
+                [3, 2, 2],
+                [3, 3, 1],
+                [3, 3, 2],
+                [4, 1, 1],
+                [4, 1, 2],
+                [4, 2, 1],
+                [4, 2, 2],
+                [4, 3, 1],
+                [4, 3, 2]
+            ];
+
+            expect(rollsFor1d2and1d3and1d4).to.deep.equal(expectedCombinationsFor1d2and1d3and1d4);
+        });
+    });
+
     describe('the computeRollsForDice method', function () {
         it('should be a method', function () {
             expect(dice.computeRollsForDice).to.be.a('function');
@@ -252,7 +376,7 @@ describe('the dice module', function () {
         });
     });
 
-    describe('sumPercentagesGreaterThanRoll', function() {
+    describe('sumPercentagesGreaterThanRoll', function () {
         it('should be a function', function () {
             expect(dice.sumPercentagesGreaterThanRoll).to.be.a('function');
         });
@@ -284,7 +408,7 @@ describe('the dice module', function () {
         });
     });
 
-    describe('sumPercentagesLessThanRoll', function() {
+    describe('sumPercentagesLessThanRoll', function () {
         it('should be a function', function () {
             expect(dice.sumPercentagesLessThanRoll).to.be.a('function');
         });
