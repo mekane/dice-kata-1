@@ -537,4 +537,54 @@ describe('the dice module', function () {
             expect(dice.parseTargetFromCommandLine('8-')).to.deep.equal({target: 8, direction: 'less'});
         });
     });
+
+    describe('the convertDiceToListOfDiceSizes method', function () {
+        it('should be a function', function () {
+            expect(dice.convertDiceToListOfDiceSizes).to.be.a('function');
+        });
+
+        it('should return an empty array for bad arguments', function () {
+            expect(dice.convertDiceToListOfDiceSizes()).to.deep.equal([]);
+            expect(dice.convertDiceToListOfDiceSizes(0)).to.deep.equal([]);
+            expect(dice.convertDiceToListOfDiceSizes('')).to.deep.equal([]);
+            expect(dice.convertDiceToListOfDiceSizes([])).to.deep.equal([]);
+            expect(dice.convertDiceToListOfDiceSizes({})).to.deep.equal([]);
+        });
+
+        it('should just return the sizes from a list of dice spec objects', function () {
+            var diceSpecList = [
+                {number: 1, size: 4},
+                {number: 1, size: 6},
+                {number: 1, size: 8}
+            ];
+            var expectedList = [4, 6, 8];
+            expect(dice.convertDiceToListOfDiceSizes(diceSpecList)).to.deep.equal(expectedList);
+        });
+
+        it('should ignore bogus values in the list', function () {
+            var diceSpecList = [
+                {number: 1, size: 4},
+                {number: 1, size: 'foo' },
+                {number: 1, size: 6},
+                {foo: 'bar' },
+                {number: 1, size: 8},
+                {number: 'foo', size: 11 },
+                'eighteen',
+                18
+            ];
+            var expectedList = [4, 6, 8];
+            expect(dice.convertDiceToListOfDiceSizes(diceSpecList)).to.deep.equal(expectedList);
+        });
+
+        it('should expand dice objects with multiple dice into a list of that many', function () {
+            var diceSpecList = [
+                {number: 1, size: 4},
+                {number: 2, size: 6},
+                {number: 3, size: 8}
+            ];
+            var expectedList = [4, 6, 6, 8, 8, 8];
+            expect(dice.convertDiceToListOfDiceSizes(diceSpecList)).to.deep.equal(expectedList);
+        });
+    });
+
 });

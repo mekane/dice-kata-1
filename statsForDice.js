@@ -1,16 +1,12 @@
 #! /usr/local/bin/node
 var dice = require('./dice');
-var lib = require('./functions');
-var flatten = lib.flatten;
 
 var parsedArgs = process.argv.map(parseArg).filter(isUsefulArgument);
 var diceArgs = parsedArgs.filter(isDiceArg);
-console.log('dice', diceArgs);
 var targetArg = parsedArgs.filter(isTargetArg)[0];
-console.log('target', targetArg);
 
-var rolls = getRollsForArg(diceArgs);
-console.log('rolls:', rolls);
+var diceToRoll = dice.convertDiceToListOfDiceSizes(diceArgs);
+var rolls = dice.computeRollsForDice(diceToRoll);
 var stats = dice.getPercentageStatsFromTotals(dice.combineTotals(rolls));
 
 printStatsForAllRolls(stats);
@@ -18,10 +14,7 @@ printTargetOdds(stats, targetArg);
 
 function parseArg(arg) {
     var diceSpec = dice.parseDiceFromCommandLine(arg);
-    if (!diceSpec.number) {
-        return dice.parseTargetFromCommandLine(arg);
-    }
-    return diceSpec;
+    return isDiceArg(diceSpec) ? diceSpec : dice.parseTargetFromCommandLine(arg);
 }
 
 function isUsefulArgument(parsedObject) {
@@ -36,11 +29,6 @@ function isDiceArg(parsedObject) {
     return !!parsedObject.number;
 }
 
-function getRollsForArg(diceArgs) {
-    return flatten(diceArgs.map(function(diceObj){
-        return dice.computeRollsForDice(diceObj.number, diceObj.size);
-    }));
-}
 
 function printStatsForAllRolls(stats) {
     for (roll in stats) {
@@ -57,11 +45,11 @@ function printTargetOdds(stats, targetArgument) {
         var target = targetArgument.target;
 
         if (targetArgument.direction === 'greater') {
-            console.log('Odds of rolling higher than ' + target + ': ' + dice.sumPercentagesGreaterThanRoll(stats, target).toFixed(1));
+            console.log('Odds of rolling higher than ' + target + ': ' + dice.sumPercentagesGreaterThanRoll(stats, target).toFixed(1) + '%');
         }
         else if (targetArgument.direction === 'less') {
             target = -target;
-            console.log('Odds of rolling less than ' + target + ': ' + dice.sumPercentagesLessThanRoll(stats, target).toFixed(1));
+            console.log('Odds of rolling less than ' + target + ': ' + dice.sumPercentagesLessThanRoll(stats, target).toFixed(1) + '%');
         }
     }
 }

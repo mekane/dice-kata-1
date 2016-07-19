@@ -11,7 +11,8 @@ module.exports = {
     sumPercentagesGreaterThanRoll: sumPercentagesGreaterThanRoll,
     parseDiceFromCommandLine: parseDiceFromCommandLine,
     parseTargetFromCommandLine: parseTargetFromCommandLine,
-    sumPercentagesLessThanRoll: sumPercentagesLessThanRoll
+    sumPercentagesLessThanRoll: sumPercentagesLessThanRoll,
+    convertDiceToListOfDiceSizes: convertDiceToListOfDiceSizes
 };
 
 function listFaces(size) {
@@ -169,3 +170,23 @@ function parseTargetFromCommandLine(stringToParse) {
     }
 }
 
+function convertDiceToListOfDiceSizes(listOfDiceObjects) {
+    if (Array.isArray(listOfDiceObjects) && listOfDiceObjects.length > 0)
+        return flatten(listOfDiceObjects.map(getSize)).filter(validNumber);
+    return [];
+
+    function getSize(diceObj) {
+        if (!validNumber(diceObj.number)) {
+            return null;
+        }
+        var n = diceObj.number;
+        var result = [];
+        while (n-- > 0)
+            result.push(diceObj.size);
+        return result;
+    }
+
+    function validNumber(value) {
+        return value && typeof value === 'number';
+    }
+}
