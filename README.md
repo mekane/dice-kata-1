@@ -21,8 +21,16 @@ Here are the expected results:
 ### Enhancements
 1. Add an option to input the number of dice.
 1. Add an option to input the size of dice.
-1. Add some crazy option to specify arbitrary combinations of dice size and number.
+1. Add command line parsing to allow specification of arbitrary combinations of dice size and number.
+1. Add command line option to specify a target number and compute odds of rolling above or below that number on the dice specified.
 
+### Workflow
+The project includes mocha for unit testing and istanbul for computing test coverage.
+
+Run `npm install` to set everything up.
+Run `npm test` to run unit tests.
+Run `npm coverage` to generate coverage report.
+Run `npm view-coverage` to pop open a web browser and view the coverage report.
 
 ## Retrospective
 
