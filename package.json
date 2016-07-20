@@ -4,12 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha -b"
+    "test": "mocha -b",
+    "coverage": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha",
+    "view-coverage": "./node_modules/.bin/http-server ./coverage/lcov-report -o -p9999"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "chai": "^3.5.0",
+    "http-server": "^0.9.0",
+    "istanbul": "^0.4.4",
     "mocha": "^2.5.3"
   }
 }

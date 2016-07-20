@@ -100,18 +100,10 @@ function sumPercentagesLessThanRoll(percentageStats, targetRoll) {
 function parseDiceFromCommandLine(stringToParse) {
     if (stringToParse && typeof stringToParse === 'string') {
         var parsed = stringToParse.split('d');
-        var number = 0;
-        var size = 0;
+        var number = Number.parseInt(parsed[0]);
+        var size = Number.parseInt(parsed[1]);
 
-        try {
-            number = Number.parseInt(parsed[0]);
-            size = Number.parseInt(parsed[1]);
-        }
-        catch (err) {
-            return {};
-        }
-
-        if (number > 0 && size > 0) {
+        if (!isNaN(number) && number > 0 && !isNaN(size) && size > 0) {
             return {
                 number: number,
                 size: size

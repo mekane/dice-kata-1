@@ -165,6 +165,10 @@ describe('the functions library', function () {
         });
 
         it('should return false for bad arguments', function () {
+            expect(lib.combineArrayWith()).to.deep.equal([]);
+            expect(lib.combineArrayWith(0)).to.deep.equal([]);
+            expect(lib.combineArrayWith('')).to.deep.equal([]);
+            expect(lib.combineArrayWith({})).to.deep.equal([]);
             expect(lib.combineArrayWith([])).to.deep.equal([]);
             expect(lib.combineArrayWith([], 0)).to.deep.equal([]);
             expect(lib.combineArrayWith([], '')).to.deep.equal([]);
