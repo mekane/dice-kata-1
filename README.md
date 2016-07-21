@@ -22,6 +22,7 @@ Here are the expected results:
 1. Add an option to input the number of dice.
 1. Add an option to input the size of dice.
 1. Add command line parsing to allow specification of arbitrary combinations of dice size and number.
+1. Add modifiers to dice (e.g. 1d6+2, 1d8-1, etc.)
 1. Add command line option to specify a target number and compute odds of rolling above or below that number on the dice specified.
 
 ### Workflow
