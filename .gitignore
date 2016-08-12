@@ -1,4 +1,5 @@
 coverage/
+dist/
 
 # Node junk
 npm-debug.log

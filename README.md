@@ -30,10 +30,11 @@ The project includes mocha for unit testing and istanbul for computing test cove
 
 Run `npm install` to set everything up.
 Run `npm test` to run unit tests.
-Run `npm coverage` to generate coverage report.
-Run `npm view-coverage` to pop open a web browser and view the coverage report.
+Run `npm run coverage` to generate coverage report.
+Run `npm run view-coverage` to pop open a web browser and view the coverage report.
+Run `npm run build` to export the dice module using browserify.
 
-## Retrospective
+## Retrospective From First Attempt
 
 I used Node and Mocha to TDD the solution. I ended up using a very functional style, especially keeping in mind the
 future enhancements. I managed to get the initial output of 2d6 working in just under an hour and a half.
