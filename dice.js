@@ -52,12 +52,13 @@ function combineTotals(arrayOfCombinations) {
     }
 }
 
-function getPercentageStatsFromTotals(statsObject) {
+function getPercentageStatsFromTotals(statsObject, optionalPrecision) {
     var result = {};
     var totalRolls = countTotalRolls(statsObject);
+    var precision = optionalPrecision || 1;
 
     Object.keys(statsObject).map(function (total) {
-        result[total] = ((statsObject[total] * 100) / totalRolls).toFixed(1);
+        result[total] = ((statsObject[total] * 100) / totalRolls).toFixed(precision);
     });
 
     return result;

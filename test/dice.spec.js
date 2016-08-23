@@ -414,6 +414,22 @@ describe('the dice module', function () {
             };
             expect(dice.getPercentageStatsFromTotals(testTotalsFor3d2)).to.deep.equal(expectedStatsFor3d2);
         });
+
+        it('should take a precision argument to allow control over the decimal places in the stats', function () {
+            var testTotalsFor3d2 = {
+                3: 1,
+                4: 3,
+                5: 3,
+                6: 1
+            };
+            var expectedStatsFor3d2_toFiveDecimalPlaces = {
+                3: '12.50000',
+                4: '37.50000',
+                5: '37.50000',
+                6: '12.50000'
+            };
+            expect(dice.getPercentageStatsFromTotals(testTotalsFor3d2, 5)).to.deep.equal(expectedStatsFor3d2_toFiveDecimalPlaces);
+        });
     });
 
     describe('sumPercentagesGreaterThanRoll', function () {
