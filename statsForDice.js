@@ -5,9 +5,7 @@ var parsedArgs = process.argv.map(parseArg).filter(isUsefulArgument);
 var diceArgs = parsedArgs.filter(isDiceArg);
 var targetArg = parsedArgs.filter(isTargetArg)[0];
 
-var diceToRoll = dice.convertDiceToListOfDiceSizes(diceArgs);
-var rolls = dice.computeRollsForDice(diceToRoll);
-var stats = dice.getPercentageStatsFromTotals(dice.combineTotals(rolls));
+var stats = dice.getStatsForDice(diceArgs);
 
 printStatsForAllRolls(stats);
 printTargetOdds(stats, targetArg);
