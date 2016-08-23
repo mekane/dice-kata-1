@@ -12,7 +12,8 @@ module.exports = {
     parseDiceFromCommandLine: parseDiceFromCommandLine,
     parseTargetFromCommandLine: parseTargetFromCommandLine,
     sumPercentagesLessThanRoll: sumPercentagesLessThanRoll,
-    convertDiceToListOfDiceSizes: convertDiceToListOfDiceSizes
+    convertDiceToListOfDiceSizes: convertDiceToListOfDiceSizes,
+    getStatsForDice: getStatsForDice
 };
 
 function listFaces(size) {
@@ -182,4 +183,26 @@ function convertDiceToListOfDiceSizes(listOfDiceObjects) {
     function validNumber(value) {
         return value && typeof value === 'number';
     }
+}
+
+function getStatsForDice(diceConfig, optionalModifier, optionalPrecision){
+    var diceToRoll = convertDiceToListOfDiceSizes(diceConfig);
+    var rolls = computeRollsForDice(diceToRoll);
+    var totals = combineTotals(rolls);
+    var stats = getPercentageStatsFromTotals(totals, optionalPrecision);
+
+    var modifier = Number(optionalModifier) || 0;
+    var finalStats = {};
+
+    if ( modifier ) {
+        Object.keys(stats).forEach(function (key) {
+            var newKey = Number(key) + modifier;
+            finalStats[newKey] = stats[key];
+        });
+    }
+    else {
+        finalStats = stats;
+    }
+
+    return finalStats;
 }

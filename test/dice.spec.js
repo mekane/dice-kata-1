@@ -603,4 +603,63 @@ describe('the dice module', function () {
         });
     });
 
+    describe('the getStatsForDice wrapper method', function () {
+        it('should be a method', function () {
+            expect(dice.getStatsForDice).to.be.a('function');
+        });
+
+        it('should be a convenience method for generating stats from dice configurations', function () {
+            var diceConfig = [{number: 2, size: 6}];
+            var expectedStats = {
+                2: '2.8',
+                3: '5.6',
+                4: '8.3',
+                5: '11.1',
+                6: '13.9',
+                7: '16.7',
+                8: '13.9',
+                9: '11.1',
+                10: '8.3',
+                11: '5.6',
+                12: '2.8'
+            };
+            expect(dice.getStatsForDice(diceConfig)).to.deep.equal(expectedStats);
+        });
+
+        it('should take an optional modifier that increases or decreases the keys of the stats block', function () {
+            var diceConfig = [{number: 2, size: 6}];
+            var expectedStats = {
+                4: '2.8',
+                5: '5.6',
+                6: '8.3',
+                7: '11.1',
+                8: '13.9',
+                9: '16.7',
+                10: '13.9',
+                11: '11.1',
+                12: '8.3',
+                13: '5.6',
+                14: '2.8'
+            };
+            expect(dice.getStatsForDice(diceConfig, 2)).to.deep.equal(expectedStats);
+        });
+
+        it('should take an optional precision argument', function () {
+            var diceConfig = [{number: 2, size: 6}];
+            var expectedStats = {
+                2: '2.78',
+                3: '5.56',
+                4: '8.33',
+                5: '11.11',
+                6: '13.89',
+                7: '16.67',
+                8: '13.89',
+                9: '11.11',
+                10: '8.33',
+                11: '5.56',
+                12: '2.78'
+            };
+            expect(dice.getStatsForDice(diceConfig, 0, 2)).to.deep.equal(expectedStats);
+        });
+    });
 });
