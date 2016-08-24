@@ -1,5 +1,6 @@
 #! /usr/local/bin/node
 var dice = require('./dice');
+var functions = require('./functions');
 
 var mode = process.argv[2];
 var arg = process.argv[3];
@@ -9,13 +10,19 @@ var arg4d12 = '4d12';
 var combos2d6 = dice.computeRollsForDice([6, 6]);
 var combos4d12 = dice.computeRollsForDice([12, 12, 12, 12]);
 
-if (mode === 'combinations') {
+if (mode === 'combinations' || mode === 'combos') {
     if (arg === arg4d12)
         logCombinations(combos4d12);
     else
         logCombinations(combos2d6);
 }
 else if (mode === 'totals') {
+    if (arg === arg4d12)
+        logCombinations(combos4d12.map(functions.sum).map(toArray));
+    else
+        logCombinations(combos2d6.map(functions.sum).map(toArray));
+}
+else if (mode === 'counts') {
     if (arg === arg4d12)
         console.log(dice.combineTotals(combos4d12));
     else
@@ -30,10 +37,14 @@ else if (mode === '-h' || mode === '--help' || mode === 'help') {
     console.log('  stats \t\t print out the stats for rolls of 2d6');
 }
 else {
-    if ( arg === arg4d12 )
+    if (arg === arg4d12)
         logStats(dice.getStatsForDice([{size: 12, number: 4}], 0, 3));
     else
         logStats(dice.getStatsForDice([{size: 6, number: 2}], 0, 2));
+}
+
+function toArray(val) {
+    return [val];
 }
 
 function logCombinations(arrayOfCombinations) {

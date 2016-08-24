@@ -5,7 +5,7 @@ var parsedArgs = process.argv.map(parseArg).filter(isUsefulArgument);
 var diceArgs = parsedArgs.filter(isDiceArg);
 var targetArg = parsedArgs.filter(isTargetArg)[0];
 
-var stats = dice.getStatsForDice(diceArgs);
+var stats = dice.getStatsForDice(diceArgs, 0, 9);
 
 printStatsForAllRolls(stats);
 printTargetOdds(stats, targetArg);
@@ -30,7 +30,7 @@ function isDiceArg(parsedObject) {
 
 function printStatsForAllRolls(stats) {
     for (roll in stats) {
-        var chance = stats[roll];
+        var chance = Number(stats[roll]).toFixed(2);
         var line = padLeft(2)(roll) + ': ' + padLeft(4)(chance) + '%';
         console.log(line)
     }
@@ -46,7 +46,6 @@ function printTargetOdds(stats, targetArgument) {
             console.log('Odds of rolling higher than ' + target + ': ' + dice.sumPercentagesGreaterThanRoll(stats, target).toFixed(1) + '%');
         }
         else if (targetArgument.direction === 'less') {
-            target = -target;
             console.log('Odds of rolling less than ' + target + ': ' + dice.sumPercentagesLessThanRoll(stats, target).toFixed(1) + '%');
         }
     }
