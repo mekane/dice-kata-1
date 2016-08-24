@@ -6,8 +6,6 @@ var arg = process.argv[3];
 
 var arg4d12 = '4d12';
 
-console.log('mode = ' + mode);
-
 var combos2d6 = dice.computeRollsForDice([6, 6]);
 var combos4d12 = dice.computeRollsForDice([12, 12, 12, 12]);
 
